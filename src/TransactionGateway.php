@@ -71,12 +71,12 @@ class TransactionGateway
                     amount,
                     currency
                 )
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->connection->prepare($sql);
 
         $stmt->bind_param(
-            'ssssssssssssssssssssds',
+            'sssssssssssssssssssssds',
             $data['status'],
             $data['errormessage'],
             $data['shopsystem'],
@@ -97,12 +97,13 @@ class TransactionGateway
             $data['shipping_country'],
             $data['email'],
             $data['customer_nr'],
+            $data['order_nr'],
             $data['order_sum'],
             $data['currency']
         );
 
         $stmt->execute();
 
-        return $this->connection->lastInsertId();
+        return $this->connection->insert_id;
     }
 }

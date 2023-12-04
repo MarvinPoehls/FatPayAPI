@@ -6,6 +6,7 @@
   },
   "require": {
     "ext-json": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-mysqli": "*"
   }
 }

@@ -13,7 +13,6 @@ class Database
 
     protected $conn;
 
-
     public function __construct($host, $user, $password, $database)
     {
         $this->host = $host;
@@ -50,24 +49,25 @@ class Database
                     status VARCHAR(10),
                     errormessage VARCHAR(255),
                     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    shop VARCHAR(255) NOT NULL,
-                    shop_version VARCHAR(10) NOT NULL,
-                    fatpay_version VARCHAR(10) NOT NULL,
+                    shopsystem VARCHAR(255) NOT NULL,
+                    shopversion VARCHAR(10) NOT NULL,
+                    moduleversion VARCHAR(10) NOT NULL,
                     language VARCHAR(4) NOT NULL,
-                    billing_fname VARCHAR(255),
-                    billing_lname VARCHAR(255),
+                    billing_firstname VARCHAR(255),
+                    billing_lastname VARCHAR(255),
                     billing_street VARCHAR(255),
                     billing_zip VARCHAR(10),
                     billing_city VARCHAR(255),
                     billing_country VARCHAR(255),
-                    shipping_fname VARCHAR(255),
-                    shipping_lname VARCHAR(255),
+                    shipping_firstname VARCHAR(255),
+                    shipping_lastname VARCHAR(255),
                     shipping_street VARCHAR(255),
                     shipping_zip VARCHAR(10),
                     shipping_city VARCHAR(255),
                     shipping_country VARCHAR(255),
                     email VARCHAR(255),
                     customer_nr VARCHAR(255),
+                    order_nr VARCHAR(255),
                     amount DECIMAL(8,2),
                     currency VARCHAR(3)
                     )';
