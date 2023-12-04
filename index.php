@@ -22,7 +22,7 @@ $id = $uri[2] ?? null;
 
 $config = new Config();
 
-$database = new Database($config::HOST, $config::DATABASE, $config::USER, $config::PASSWORD);
+$database = new Database($config::HOST, $config::USER, $config::PASSWORD, $config::DATABASE);
 
 $gateway = new TransactionGateway($database);
 

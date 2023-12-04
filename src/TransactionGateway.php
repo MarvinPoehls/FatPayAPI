@@ -10,7 +10,7 @@ class TransactionGateway
 
     public function __construct($database)
     {
-        $this->connection = $database->getConnection();
+        $this->connection = $database->getConnection($database->getDatabaseName());
     }
 
     public function getAll()
@@ -19,7 +19,7 @@ class TransactionGateway
         $stmt = $this->connection->query($sql);
 
         $data = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch_assoc()) {
             $data[] = $row;
         }
         return $data;
@@ -41,20 +41,65 @@ class TransactionGateway
         $sql = "SELECT * FROM transactions WHERE id = ".$id;
         $stmt = $this->connection->query($sql);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch_assoc();
     }
 
     public function create(array $data)
     {
-        $sql = "INSERT INTO transactions (firstname, lastname, status, errormessage)
-                VALUES (:firstname, :lastname, :status, :errormessage)";
+        $sql = "INSERT INTO transactions (
+                    status,
+                    errormessage,
+                    shopsystem,
+                    shopversion,
+                    moduleversion,
+                    language,
+                    billing_firstname,
+                    billing_lastname,
+                    billing_street,
+                    billing_zip,
+                    billing_city,
+                    billing_country,
+                    shipping_firstname,
+                    shipping_lastname,
+                    shipping_street,
+                    shipping_zip,
+                    shipping_city,
+                    shipping_country,
+                    email,
+                    customer_nr,
+                    order_nr,
+                    amount,
+                    currency
+                )
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->connection->prepare($sql);
 
-        $stmt->bindValue(":firstname", $data["firstname"], PDO::PARAM_STR);
-        $stmt->bindValue(":lastname", $data["lastname"], PDO::PARAM_STR);
-        $stmt->bindValue(":status", $data["status"], PDO::PARAM_STR);
-        $stmt->bindValue(":errormessage", $data["errormessage"], PDO::PARAM_STR);
+        $stmt->bind_param(
+            'ssssssssssssssssssssds',
+            $data['status'],
+            $data['errormessage'],
+            $data['shopsystem'],
+            $data['shopversion'],
+            $data['moduleversion'],
+            $data['language'],
+            $data['billing_firstname'],
+            $data['billing_lastname'],
+            $data['billing_street'],
+            $data['billing_zip'],
+            $data['billing_city'],
+            $data['billing_country'],
+            $data['shipping_firstname'],
+            $data['shipping_lastname'],
+            $data['shipping_street'],
+            $data['shipping_zip'],
+            $data['shipping_city'],
+            $data['shipping_country'],
+            $data['email'],
+            $data['customer_nr'],
+            $data['order_sum'],
+            $data['currency']
+        );
 
         $stmt->execute();
 

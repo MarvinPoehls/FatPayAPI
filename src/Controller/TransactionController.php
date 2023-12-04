@@ -39,14 +39,14 @@ class TransactionController
             case "POST":
                 $data = $_REQUEST;
 
-                if (!array_key_exists("lastname", $data)) {
+                if (!array_key_exists("billing_lastname", $data)) {
                     echo json_encode([
                         "status" => "ERROR",
                         "errormessage" => "No lastname given."
                     ]);
                     break;
                 }
-                if ($data["lastname"] === "Failed") {
+                if ($data["billing_lastname"] === "Failed") {
                     $data["status"] = "ERROR";
                     $data["errormessage"] = "Lastname is 'Failed'.";
                 }
